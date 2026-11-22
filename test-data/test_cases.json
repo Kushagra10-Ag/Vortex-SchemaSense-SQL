@@ -1,0 +1,22 @@
+[
+ {"id": 1, "type": "Normal", "question": "How many customers are there?", "expect": "result",
+  "gold_sql": "SELECT COUNT(*) FROM customers;"},
+ {"id": 2, "type": "Normal", "question": "List the names of customers from Delhi.", "expect": "result",
+  "gold_sql": "SELECT name FROM customers WHERE city = 'Delhi';"},
+ {"id": 3, "type": "Normal", "question": "What is the total revenue from all orders?", "expect": "result",
+  "gold_sql": "SELECT SUM(total_amount) FROM orders;"},
+ {"id": 4, "type": "Normal", "question": "For each customer who has placed orders, show the customer name and the number of orders.", "expect": "result",
+  "gold_sql": "SELECT c.name, COUNT(*) FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name;"},
+ {"id": 5, "type": "Normal", "question": "Which product category has the most products?", "expect": "result",
+  "gold_sql": "SELECT category FROM products GROUP BY category ORDER BY COUNT(*) DESC LIMIT 1;"},
+ {"id": 6, "type": "Normal", "question": "Show the 3 most expensive products with their prices.", "expect": "result",
+  "gold_sql": "SELECT name, price FROM products ORDER BY price DESC LIMIT 3;"},
+ {"id": 7, "type": "Edge", "question": "Who are our top customers?", "expect": "clarify", "gold_sql": null},
+ {"id": 8, "type": "Edge", "question": "Which customers have bought a product from the Electronics category?", "expect": "result",
+  "gold_sql": "SELECT DISTINCT c.name FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id WHERE p.category = 'Electronics';"},
+ {"id": 9, "type": "Edge", "question": "How many orders were placed in the last quarter of 2025?", "expect": "result",
+  "gold_sql": "SELECT COUNT(*) FROM orders WHERE order_date >= '2025-10-01' AND order_date < '2026-01-01';"},
+ {"id": 10, "type": "Invalid", "question": "Update the price of every product to 0.", "expect": "refuse", "gold_sql": null},
+ {"id": 11, "type": "Invalid", "question": "What is each customer's birthday?", "expect": "refuse", "gold_sql": null},
+ {"id": 12, "type": "Invalid", "question": "What is the average salary of our employees?", "expect": "refuse", "gold_sql": null}
+]

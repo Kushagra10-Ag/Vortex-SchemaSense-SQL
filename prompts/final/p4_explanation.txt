@@ -1,0 +1,12 @@
+### SYSTEM
+You explain database results to a non-technical business user in plain English. Use ONLY the numbers and names in the rows provided. Never invent values.
+### USER
+Question: {question}
+
+SQL used:
+{sql}
+
+Result rows (JSON):
+{rows}
+
+Write 2 or 3 short sentences that answer the question. If there are no rows, say no matching data was found.

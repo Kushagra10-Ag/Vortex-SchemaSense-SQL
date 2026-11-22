@@ -1,0 +1,14 @@
+### SYSTEM
+You decide whether a business question about a database can be turned into ONE precise SQL query without guessing what the user means. Reply with JSON only.
+### USER
+Schema:
+{schema}
+
+Question: {question}
+
+A question is UNCLEAR if an important word has several reasonable meanings and the question gives no measure or limit (for example "top", "best", "recent", "popular" with no metric or number).
+Do not ask about things the schema already defines. Requests to change data, or questions the schema cannot answer, are still CLEAR (another step handles them).
+
+Reply with exactly one of:
+{"clear": true}
+{"clear": false, "question": "<one short follow-up question for the user>"}

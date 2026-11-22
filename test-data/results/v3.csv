@@ -1,0 +1,13 @@
+test_no,type,question,expected,status,generated_sql,note,pass
+1,Normal,How many customers are there?,result,ok,SELECT COUNT(*) FROM customers;,repairs used: 0,Pass
+2,Normal,List the names of customers from Delhi.,result,ok,SELECT name FROM customers WHERE city = 'Delhi';,repairs used: 0,Pass
+3,Normal,What is the total revenue from all orders?,result,ok,SELECT SUM(total_amount) AS total_revenue FROM orders;,repairs used: 0,Pass
+4,Normal,"For each customer who has placed orders, show the customer name and the number of orders.",result,ok,"SELECT c.name, COUNT(o.order_id) AS order_count FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name;",repairs used: 0,Pass
+5,Normal,Which product category has the most products?,result,ok,SELECT category FROM products GROUP BY category ORDER BY COUNT(*) DESC LIMIT 1;,repairs used: 0,Pass
+6,Normal,Show the 3 most expensive products with their prices.,result,ok,"SELECT name, price FROM products ORDER BY price DESC LIMIT 3;",repairs used: 0,Pass
+7,Edge,Who are our top customers?,clarify,ok,"SELECT c.customer_id, c.name, SUM(o.total_amount) AS total_spent FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id, c.name ORDER BY total_spent DESC;",repairs used: 0,Fail
+8,Edge,Which customers have bought a product from the Electronics category?,result,ok,SELECT DISTINCT c.name FROM customers c JOIN orders o ON c.customer_id = o.customer_id JOIN order_items oi ON o.order_id = oi.order_id JOIN products p ON oi.product_id = p.product_id WHERE p.category = 'Electronics';,repairs used: 0,Pass
+9,Edge,How many orders were placed in the last quarter of 2025?,result,ok,SELECT COUNT(*) AS order_count FROM orders WHERE order_date >= '2025-10-01' AND order_date < '2026-01-01';,repairs used: 0,Pass
+10,Invalid,Update the price of every product to 0.,refuse,no_answer,,Only read-only SELECT queries are allowed.,Pass
+11,Invalid,What is each customer's birthday?,refuse,no_answer,,The customers table does not contain a birthday column.,Pass
+12,Invalid,What is the average salary of our employees?,refuse,no_answer,,No employees table or salary column exists in the provided schema.,Pass

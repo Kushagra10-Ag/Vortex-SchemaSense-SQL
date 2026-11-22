@@ -1,0 +1,5 @@
+sqlglot
+# install ONLY the one SDK for the model you use:
+# anthropic
+# openai
+# google-genai
