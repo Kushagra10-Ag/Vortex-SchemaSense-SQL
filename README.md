@@ -1,6 +1,4 @@
-<div align="center">
-
-# AskDB
+# AskDB (Vortex-SchemaSense-SQL)
 
 ### Ask your database in plain English. Get safe, read-only SQL, the result, and a simple explanation.
 
@@ -13,7 +11,6 @@
 
 [Prototype](#-links) | [Demo Reel](#-links) | [Results](#-results) | [Team](#-team-vortex)
 
-</div>
 
 ---
 
@@ -59,15 +56,15 @@ AskDB is a multi-step prompt pipeline. Four steps use an LLM, and two steps are 
 
 ```mermaid
 flowchart LR
-    Q[User question] --> P1[P1: Ambiguity check<br/>LLM]
+    Q[User question] --> P1[P1: Ambiguity check - LLM]
     P1 -- unclear --> C[Ask clarifying question]
-    P1 -- clear --> P2[P2: SQL generation<br/>LLM + few-shot examples]
-    P2 --> V[Validator<br/>SELECT-only, code]
+    P1 -- clear --> P2[P2: SQL generation - LLM + few-shot examples]
+    P2 --> V[Validator - SELECT-only, code]
     V -- blocked --> B[Refuse]
-    V -- ok --> E[Read-only executor<br/>code]
-    E -- DB error --> P3[P3: Repair<br/>LLM, max 2 retries]
+    V -- ok --> E[Read-only executor - code]
+    E -- DB error --> P3[P3: Repair - LLM, max 2 retries]
     P3 --> V
-    E -- success --> P4[P4: Explanation<br/>LLM]
+    E -- success --> P4[P4: Explanation - LLM]
     P4 --> R[SQL + rows + explanation]
 ```
 
@@ -119,7 +116,7 @@ Raw outputs for each run are saved in [`test-data/results/`](test-data/results/)
 ## Project Structure
 
 ```
-askdb/
+Vortex-SchemaSense-SQL/
 ├── code/
 │   ├── pipeline.py        # Main pipeline (P1 -> P2 -> validate -> run -> P3 -> P4)
 │   ├── validator.py       # SELECT-only safety check (sqlglot)
@@ -145,8 +142,8 @@ askdb/
 ### 1. Clone and install
 
 ```bash
-git clone <your-repo-url>
-cd askdb
+git clone https://github.com/YOUR-USERNAME/Vortex-SchemaSense-SQL.git
+cd Vortex-SchemaSense-SQL
 pip install sqlglot
 pip install anthropic      # or: openai | google-genai (install only the one you use)
 ```
@@ -155,8 +152,8 @@ pip install anthropic      # or: openai | google-genai (install only the one you
 
 ```bash
 export LLM_PROVIDER=anthropic          # anthropic | openai | gemini
-export MODEL_NAME=<exact model name from your provider dashboard>
-export ANTHROPIC_API_KEY=<your key>    # use the key for your own provider
+export MODEL_NAME=YOUR_MODEL_NAME     # exact model name from your provider dashboard
+export ANTHROPIC_API_KEY=YOUR_KEY     # use the key for your own provider
 ```
 
 On Windows PowerShell, use `$env:LLM_PROVIDER="anthropic"` instead of `export`. See `.env.example` for all variables. **Never commit your keys.**
@@ -207,12 +204,12 @@ We would rather report what did not work than hide it.
 
 | Enrollment No. | Name | Role |
 |---|---|---|
-| S24CSEU0056 | **Kushagra Agrawal** (Team Lead) |
-| S24CSEU0189 | Vishva Chauvisa |
-| S24CSEU1577 | Akshej Gupta | 
-| S24CSEU0179 | Viduit Dev Raj Saini | 
-| S24CSEU0079 | Tejaswita Tiwari |
-| S24CSEU1567 | Priyanshu Saini |
+| S24CSEU0056 | **Kushagra Agrawal** (Team Lead) | Prompt design and iteration log |
+| S24CSEU0189 | Vishva Chauvisa | Prototype code and demo link |
+| S24CSEU1577 | Akshej Gupta | Testing and failure analysis |
+| S24CSEU0179 | Viduit Dev Raj Saini | Technical report and Milestone 2 PDF |
+| S24CSEU0079 | Tejaswita Tiwari | Reel recording and editing |
+| S24CSEU1567 | Priyanshu Saini | Architecture diagram and documentation |
 
 ## Links
 
@@ -224,9 +221,4 @@ We would rather report what did not work than hide it.
 
 ---
 
-<div align="center">
-
 Built by **Team Vortex**. All data is synthetic and all queries are read-only.
-
-</div>#   V o r t e x - S c h e m a S e n s e - S Q L  
- 
